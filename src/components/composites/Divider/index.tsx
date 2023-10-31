@@ -9,7 +9,7 @@ const Divider = (props: IDividerProps, ref?: any) => {
   const { orientation, ...resolvedProps } = usePropsResolution(
     'Divider',
     props,
-    {},
+    undefined,
     { resolveResponsively: ['thickness'] }
   );
   //TODO: refactor for responsive prop

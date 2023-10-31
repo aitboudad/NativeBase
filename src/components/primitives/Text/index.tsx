@@ -34,7 +34,7 @@ const Text = ({ children, ...props }: ITextProps, ref: any) => {
   } = usePropsResolution(
     'Text',
     props,
-    {},
+    undefined,
     {
       resolveResponsively: ['noOfLines', 'numberOfLines'],
       // We override the component base theme if text has an ancestor.

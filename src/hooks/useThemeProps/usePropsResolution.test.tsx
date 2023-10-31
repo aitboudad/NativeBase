@@ -18,7 +18,7 @@ import {
   Heading,
 } from '../../components/primitives';
 // import { Ionicons } from '@expo/vector-icons';
-import { FormControl, Menu } from '../../components/composites';
+import { FormControl, IconButton, Menu } from '../../components/composites';
 import { Platform } from 'react-native';
 import { extendTheme } from '../../core/extendTheme';
 import { fireEvent } from '@testing-library/react-native';
@@ -64,19 +64,93 @@ function CheckBoxGroup() {
 }
 
 describe('props resolution', () => {
-  it('tests simple resolution', () => {
+  it('button padding', () => {
+    const newTheme = extendTheme({
+      components: {
+        Button: {
+          baseStyle: {
+            py: 4,
+            px: 2,
+          },
+        },
+      },
+    });
     const { getByTestId } = render(
-      <Provider>
-        <Box p={2} testID="test">
+      <Provider theme={newTheme}>
+        <Button p={0} testID="test">
+          hello world
+        </Button>
+      </Provider>
+    );
+    const box = getByTestId('test');
+    expect(box.props.style.paddingTop).toBe(0);
+  });
+
+  it('button bgColor pressed', () => {
+    const newTheme = extendTheme({
+      components: {
+        Button: {
+          baseStyle: {
+            bgColor: 'cyan.500',
+          },
+        },
+      },
+    });
+    const { getByTestId } = render(
+      <Provider theme={newTheme}>
+        <Button
+          p={5}
+          testID="test"
+          //@ts-ignore
+          bg="white"
+          _pressed={{ bg: 'black' }}
+          isPressed
+        >
+          hello world
+        </Button>
+      </Provider>
+    );
+    const box = getByTestId('test');
+    expect(box.props.style.backgroundColor).toBe('#000000');
+  });
+
+  it('variants background color', () => {
+    const newTheme = extendTheme({
+      components: {
+        Box: {
+          variants: {
+            myBox: () => ({
+              bg: 'cyan.500',
+            }),
+          },
+        },
+      },
+    });
+    const { getByTestId } = render(
+      <Provider theme={newTheme}>
+        <Box
+          p={5}
+          testID="test"
+          //@ts-ignore
+          variant="myBox"
+          bgColor="white"
+        >
           hello world
         </Box>
       </Provider>
     );
     const box = getByTestId('test');
-    expect(box.props.style.paddingLeft).toBe(defaultTheme.space['2']);
-    expect(box.props.style.paddingRight).toBe(defaultTheme.space['2']);
-    expect(box.props.style.paddingTop).toBe(defaultTheme.space['2']);
-    expect(box.props.style.paddingBottom).toBe(defaultTheme.space['2']);
+    expect(box.props.style.backgroundColor).toBe(newTheme.colors.white);
+  });
+
+  it('button size', () => {
+    const { getByTestId } = render(
+      <Provider>
+        <IconButton p={2} size={'lg'} testID="test" />
+      </Provider>
+    );
+    const box = getByTestId('test');
+    expect(box.props.style.height).toBeUndefined();
   });
 
   it('tests simple resolution with responsive props', () => {
@@ -215,7 +289,7 @@ describe('props resolution', () => {
           //@ts-ignore
           variant="myBox"
           //@ts-ignore
-          // size="xs"
+          size="xs"
         >
           hello world
         </Box>
@@ -253,7 +327,7 @@ describe('props resolution', () => {
       width: defaultTheme.space['20'],
     });
 
-    expect(spinner.props.style).toEqual([[{}, { dataSet: {} }], undefined]);
+    expect(spinner.props.style).toEqual([[{}, { dataSet: {} }, {}], undefined]);
   });
 
   it('resolves base style and variants, sizes and default props with props', () => {
@@ -560,6 +634,24 @@ describe('props resolution', () => {
     );
   });
 
+  it('Input: size cache', () => {
+    const newTheme = extendTheme({
+      config: { initialColorMode: 'dark' },
+    });
+    const { getByTestId } = render(
+      <Provider theme={newTheme}>
+        <Input size="md" />
+        <Input _input={{ testID: 'test' }} size="sm" />
+        <Input _input={{ testID: 'test2' }} size="12px" />
+      </Provider>
+    );
+    const inputElement = getByTestId('test');
+    expect(inputElement.props.style.fontSize).toBe(newTheme.fontSizes.xs);
+
+    const inputElement2 = getByTestId('test2');
+    expect(inputElement2.props.style.fontSize).toBeUndefined();
+  });
+
   it('Input: size', () => {
     const newTheme = extendTheme({
       config: { initialColorMode: 'dark' },
@@ -577,7 +669,7 @@ describe('props resolution', () => {
       </Provider>
     );
     const inputElement = getByTestId('test');
-    expect(inputElement.props.style.fontSize).toBe(defaultTheme.fontSizes.sm);
+    expect(inputElement.props.style.fontSize).toBe(newTheme.fontSizes.xs);
   });
 
   it('Input: variant', () => {

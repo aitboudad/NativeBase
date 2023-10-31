@@ -1,52 +1,24 @@
 import type { InterfaceButtonProps } from '../../components/primitives/Button/types';
 
-const baseStyle = (props: InterfaceButtonProps & { theme: any }) => {
-  const { primary } = props.theme.colors;
-
-  return {
-    borderRadius: 'sm', // '4px'
-    flexDirection: 'row',
-    justifyContent: 'center',
+const baseStyle = {
+  borderRadius: 'sm', // '4px'
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  _stack: {
+    space: '1.5',
     alignItems: 'center',
-    _web: {
-      _disabled: {
-        cursor: 'not-allowed',
-      },
-      _loading: {
-        cursor: 'not-allowed',
-      },
-      cursor: 'pointer',
-      userSelect: 'none',
-    },
-    _focusVisible: {
-      _web: {
-        outlineWidth: '0',
-        style: { boxShadow: `${primary[400]} 0px 0px 0px 2px` },
-      },
-    },
-    _dark: {
-      _focusVisible: {
-        _web: {
-          outlineWidth: '0',
-          style: { boxShadow: `${primary[500]} 0px 0px 0px 2px` },
-        },
-      },
-    },
-    _stack: {
-      space: '1.5',
-      alignItems: 'center',
-    },
-    _loading: {
-      opacity: '40',
-    },
-    _disabled: {
-      opacity: '40',
-    },
-    _spinner: {
-      size: 'sm',
-      focusable: false,
-    },
-  };
+  },
+  _loading: {
+    opacity: '40',
+  },
+  _disabled: {
+    opacity: '40',
+  },
+  _spinner: {
+    size: 'sm',
+    focusable: false,
+  },
 };
 
 function variantGhost({ colorScheme }: InterfaceButtonProps) {

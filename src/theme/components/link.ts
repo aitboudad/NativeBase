@@ -1,8 +1,6 @@
-const baseStyle = () => {
-  return {
-    width: 'auto',
-    height: 'auto',
-  };
+const baseStyle = {
+  width: 'auto',
+  height: 'auto',
 };
 
 export default {

@@ -10,6 +10,61 @@ import {
   extractInObject,
 } from './../../theme/tools';
 import { useContrastText } from '../useContrastText';
+import { isValidElement } from 'react';
+
+export function isBlankString(value: any) {
+  return value === '';
+}
+
+export function isObject(x: any) {
+  return x != null && typeof x === 'object';
+}
+
+export function objAndSameType(obj1: any, obj2: any) {
+  return (
+    isObject(obj1) &&
+    isObject(obj2) &&
+    Object.getPrototypeOf(obj1) === Object.getPrototypeOf(obj2) &&
+    !(Array.isArray(obj1) || Array.isArray(obj2))
+  );
+}
+
+export function isFunction(value: any) {
+  return typeof value === 'function';
+}
+
+export function clone(value: any): any {
+  if (!isObject(value) || isValidElement(value) || isFunction(value)) {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return value.slice(0).map((v) => clone(v));
+  }
+
+  const newVal = {} as any;
+  for (var i = 0, keys = Object.keys(value); i < keys.length; i++) {
+    const prop = keys[i];
+    newVal[prop] = clone(value[prop]);
+  }
+
+  return newVal;
+}
+
+export function reverseDeepMerge(...dest: any): any;
+export function reverseDeepMerge(dest: any) {
+  for (let index = 1; index < arguments.length; index++) {
+    const src = arguments[index];
+    for (const srcArg in src) {
+      if (isNil(dest[srcArg]) || isBlankString(dest[srcArg])) {
+        dest[srcArg] = srcArg === 'children' ?  src[srcArg] : clone(src[srcArg]);
+      } else if (objAndSameType(dest[srcArg], src[srcArg]) && dest[srcArg] !== src[srcArg]) {
+        reverseDeepMerge(dest[srcArg], src[srcArg]);
+      }
+    }
+  }
+  return dest;
+}
 
 /*
  Extract props from theme props and omit those from props

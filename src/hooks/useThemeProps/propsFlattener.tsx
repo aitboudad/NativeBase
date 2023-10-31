@@ -39,7 +39,33 @@ const INITIAL_PROP_SPECIFICITY = {
   [SPECIFICITY_10]: 0,
 };
 
-const pseudoPropsMap = {
+export const STATE_PROPS = [
+  'isIndeterminate',
+  'isChecked',
+  'isReadOnly',
+  'isInvalid',
+  // 'isFocused',
+  // 'isFocusVisible',
+  // 'isHovered',
+  'isPressed',
+  'isDisabled',
+  'isLoading',
+];
+
+export const STATE_PROPS_MAP: Record<string, string> = {
+  isIndeterminate: '_indeterminate',
+  isChecked: '_checked',
+  isReadOnly: '_readOnly',
+  isInvalid: '_invalid',
+  isFocused: '_focus',
+  isFocusVisible: '_focusVisible',
+  isHovered: '_hover',
+  isPressed: '_pressed',
+  isDisabled: '_disabled',
+  isLoading: '_loading',
+};
+
+export const pseudoPropsMap = {
   _web: { dependentOn: 'platform', priority: SPECIFICITY_10 },
   _ios: { dependentOn: 'platform', priority: SPECIFICITY_10 },
   _android: { dependentOn: 'platform', priority: SPECIFICITY_10 },

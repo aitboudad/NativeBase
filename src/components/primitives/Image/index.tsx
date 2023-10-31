@@ -43,10 +43,15 @@ const Image = memo(
       };
     }, [source?.uri, src, getSource]);
 
+    React.useEffect(() => {
+      if (typeof alt !== 'string') {
+        console.warn('Please pass alt prop to Image component');
+      }
+    }, [alt]);
+
     const onImageLoadError = useCallback(
       (event: any) => {
         props.onError && props.onError(event);
-        console.warn(event.nativeEvent.error);
         if (
           !ignoreFallback &&
           fallbackSource &&
@@ -70,10 +75,6 @@ const Image = memo(
     //TODO: refactor for responsive prop
     if (useHasResponsiveProps(props)) {
       return null;
-    }
-
-    if (typeof alt !== 'string') {
-      console.warn('Please pass alt prop to Image component');
     }
 
     if (alternate) {

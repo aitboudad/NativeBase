@@ -16,14 +16,12 @@
   "scripts": {
     "test": "node_modules/.bin/jest",
     "typescript": "tsc --noEmit",
-    "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods",
     "build:web": "rollup --config",
-    "bundle:analysis": "visualize-bundle",
-    "commit-test": "yarn prepare && cd example && yarn test && cd .."
+    "bundle:analysis": "visualize-bundle"
   },
   "lint-staged": {
     "src/**/*.{js,ts,tsx}": [
@@ -118,17 +116,6 @@
     ],
     "setupFiles": [
       "<rootDir>/src/jest/mock.ts"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "yarn lint-staged"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
     ]
   },
   "release-it": {

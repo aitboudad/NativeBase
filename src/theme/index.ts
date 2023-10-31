@@ -20,9 +20,13 @@ const theme = {
   ...base,
   components,
   config,
+  runtimeCache: new Map(),
 };
 
-export type Theme = typeof theme & { fontConfig: any };
+export type Theme = typeof theme & {
+  fontConfig: any;
+  runtimeCache: Map<string, any>;
+};
 
 export interface ICustomTheme {}
 

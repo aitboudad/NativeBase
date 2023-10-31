@@ -1,10 +1,8 @@
-const baseStyle = () => {
-  return {
-    color: 'muted.500',
-    _dark: {
-      color: 'muted.400',
-    },
-  };
+const baseStyle = {
+  color: 'muted.500',
+  _dark: {
+    color: 'muted.400',
+  },
 };
 
 const sizes = {

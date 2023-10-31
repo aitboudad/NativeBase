@@ -14,7 +14,6 @@ export const KeyboardAvoidingView = forwardRef(
     const { ...resolvedProps } = usePropsResolution(
       'KeyboardAvoidingView',
       props,
-      {}
     );
     //TODO: refactor for responsive prop
     if (useHasResponsiveProps(props)) {

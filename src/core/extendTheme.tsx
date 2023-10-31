@@ -31,5 +31,7 @@ export function extendTheme<T extends ThemeUtil>(
     defaultTheme
   );
 
+  finalOverrides.runtimeCache = new Map();
+
   return finalOverrides as T & Theme;
 }

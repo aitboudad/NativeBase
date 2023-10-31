@@ -1,7 +1,5 @@
-const baseStyle = () => {
-  return {
-    alignItems: 'flex-start',
-  };
+const baseStyle = {
+  alignItems: 'flex-start',
 };
 
 export default {

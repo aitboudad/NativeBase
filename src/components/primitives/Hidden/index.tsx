@@ -15,14 +15,9 @@ export function Hidden({ isSSR, ...props }: IHiddenProps) {
     platform,
     colorMode,
     children,
-  } = usePropsResolution(
-    'Hidden',
-    props,
-    {},
-    {
-      ignoreProps: ['only', 'platform'],
-    }
-  );
+  } = usePropsResolution('Hidden', props, undefined, {
+    ignoreProps: ['only', 'platform'],
+  });
   const { breakpoints } = useTheme();
   const currentColorMode = useColorMode();
 

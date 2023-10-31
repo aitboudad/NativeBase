@@ -34,7 +34,7 @@ const AspectRatio = (props: IAspectRatioProps, ref?: any) => {
   const { ratio, children = <></>, ...resolvedProps } = usePropsResolution(
     'AspectRatio',
     props,
-    {},
+    undefined,
     { resolveResponsively: ['ratio'] }
   );
   let computedStyle: ViewStyle | undefined = resolvedProps.style;

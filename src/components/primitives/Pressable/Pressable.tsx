@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from 'react';
+import React, { forwardRef, memo, useMemo } from 'react';
 import { Pressable as RNPressable } from 'react-native';
 import { composeEventHandlers } from '../../../utils';
 import type { IPressableProps } from './types';
@@ -10,10 +10,13 @@ import { useFocusRing } from '@react-native-aria/focus';
 export const useHover = () => {
   const [isHovered, setHovered] = React.useState(false);
   return {
-    hoverProps: {
-      onHoverIn: () => setHovered(true),
-      onHoverOut: () => setHovered(false),
-    },
+    hoverProps: useMemo(
+      () => ({
+        onHoverIn: () => setHovered(true),
+        onHoverOut: () => setHovered(false),
+      }),
+      []
+    ),
     isHovered,
   };
 };
@@ -21,10 +24,13 @@ export const useHover = () => {
 export const useFocus = () => {
   const [isFocused, setFocused] = React.useState(false);
   return {
-    focusProps: {
-      onFocus: () => setFocused(true),
-      onBlur: () => setFocused(false),
-    },
+    focusProps: useMemo(
+      () => ({
+        onFocus: () => setFocused(true),
+        onBlur: () => setFocused(false),
+      }),
+      []
+    ),
     isFocused,
   };
 };
@@ -32,10 +38,13 @@ export const useFocus = () => {
 export const useIsPressed = () => {
   const [isPressed, setIsPressed] = React.useState(false);
   return {
-    pressableProps: {
-      onPressIn: () => setIsPressed(true),
-      onPressOut: () => setIsPressed(false),
-    },
+    pressableProps: useMemo(
+      () => ({
+        onPressIn: () => setIsPressed(true),
+        onPressOut: () => setIsPressed(false),
+      }),
+      []
+    ),
     isPressed,
   };
 };

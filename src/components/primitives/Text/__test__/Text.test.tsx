@@ -122,7 +122,7 @@ describe('Text component', () => {
   });
 
   it("doesn't break if custom font is not specified", () => {
-    const newTheme = JSON.parse(JSON.stringify(defaultTheme));
+    const newTheme = { ...defaultTheme };
     delete newTheme.fontConfig;
     const { getByTestId } = render(
       <Provider theme={newTheme}>

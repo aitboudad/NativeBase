@@ -78,6 +78,9 @@ export type ISkeletonComponentType = ((
   Text: React.MemoExoticComponent<
     (props: ISkeletonTextProps & { ref?: MutableRefObject<any> }) => JSX.Element
   >;
+  Container: React.MemoExoticComponent<
+    (props: ISkeletonProps & { ref?: MutableRefObject<any> }) => JSX.Element
+  >;
 };
 
 export type ISkeletonProps = InterfaceSkeletonProps & CustomProps<'Skeleton'>;

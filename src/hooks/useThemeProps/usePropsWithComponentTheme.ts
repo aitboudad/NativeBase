@@ -1,6 +1,6 @@
-import { usePropsResolutionWithComponentTheme } from './usePropsResolution';
 import type { ComponentTheme } from '../../theme';
 import type { IStateProps } from './propsFlattener';
+import { usePropsResolutionWithComponentTheme } from './useLegacyPropsResolution';
 
 export function usePropsWithComponentTheme(
   localTheme: ComponentTheme,
